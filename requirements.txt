@@ -1,0 +1,11 @@
+setuptools
+datetime
+pathlib
+pandas
+PYAML
+python-box==6.0.2
+ensure
+flask
+tensorflow
+keras
+-e .
