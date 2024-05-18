@@ -1,7 +1,7 @@
 artifacts_root: artifacts
 
 execution_flow: # set true if needed to execute the flow, else false
-  data_ingestion_flow: False
+  data_ingestion_flow: True
   data_validation_flow: True
   data_transformation_flow: True
   model_trainer_flow: True
@@ -12,5 +12,8 @@ data_ingestion:
   data_ingestion_path: artifacts/data_ingestion
 
 data_transformation:
+  data_path: dataset/
   data_ingestion_path: artifacts/data_ingestion
   data_transformation_path: artifacts/data_transformation
+  data_transformation_save_features: artifacts/data_transformation/features
+  data_transformation_save_captions: artifacts/data_transformation/captions

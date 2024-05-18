@@ -16,5 +16,8 @@ class DataIngestionConfig():
 
 @dataclass
 class DataTransformationConfig():
+    data_path: Path
     data_ingestion_path: Path
     data_transformation_path: Path
+    data_transformation_save_features:Path
+    data_transformation_save_captions: Path
