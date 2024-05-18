@@ -26,10 +26,11 @@ try:
         logging.info(f">>>>>>>>>>>>>>> Starting {STAGE_NAME} pipeline")
         Get_data_transformationpipeline=DataTransformationPipeline()
         Get_data_transformationpipeline.main()
+        logging.info("<<<< Application Ended >>>>")
+        
     else:
         logging.info(f"-------------- Stage {STAGE_NAME} is skipped.")
-        logging.info("<<<< Application Ended >>>>")
-        logging.info(f"Time taken to execute the application is {time.time()-start} seconds")
+    logging.info(f"Time taken to execute the application is {time.time()-start} seconds")
 except Exception as e:
     logging.exception(e)
     

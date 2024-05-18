@@ -32,11 +32,19 @@ class ConfigurationManager():
     def get_data_transformation_config(self)->DataTransformationConfig:
         logging.info(f">>>>Inside {self.__class__.__name__}.{self.get_data_transformation_config.__name__}")
         config_transformation_data=self.config_data.data_transformation
-        create_directories([config_transformation_data.data_ingestion_path,config_transformation_data.data_transformation_path])
+        create_directories([config_transformation_data.data_path,
+                            config_transformation_data.data_ingestion_path,
+                            config_transformation_data.data_transformation_path,
+                            config_transformation_data.data_transformation_save_features,
+                            config_transformation_data.data_transformation_save_captions
+                            ])
 
         data_transformation_config_detail=DataTransformationConfig(
+            data_path=config_transformation_data.data_path,
             data_ingestion_path=config_transformation_data.data_ingestion_path,
-            data_transformation_path=config_transformation_data.data_transformation_path
+            data_transformation_path=config_transformation_data.data_transformation_path,
+            data_transformation_save_features=config_transformation_data.data_transformation_save_features,
+            data_transformation_save_captions=config_transformation_data.data_transformation_save_captions
 
         )
         logging.info(f">>>> End of {self.__class__.__name__}.{self.get_data_transformation_config.__name__}")
