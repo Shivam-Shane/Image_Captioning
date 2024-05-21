@@ -7,11 +7,12 @@ from executionflow import Executionflow
 import warnings
 warnings.filterwarnings("ignore")
 
+#----------------------------------------------------------------
+logging.info(">>>> Application Started")
 get_execuationflow=Executionflow()
 get_execuationflow=get_execuationflow.get_data_for_executionflow()
 try:
     start=time.time()
-    logging.info(">>>> Application Started")
     STAGE_NAME="DATA INGESTION"
     if get_execuationflow.data_ingestion_flow==True:
         logging.info(f">>>>>>>>>>>>>>> Starting {STAGE_NAME} pipeline")
@@ -33,4 +34,4 @@ try:
     logging.info(f"Time taken to execute the application is {time.time()-start} seconds")
 except Exception as e:
     logging.exception(e)
-    
+#----------------------------------------------------------------
