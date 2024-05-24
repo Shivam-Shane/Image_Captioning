@@ -89,7 +89,7 @@ class DataTransformation():
                         caption=caption.lower()
                         caption=caption.replace("[^A-Za-z]","")
                         # caption=caption.replace("\s+","")# additional spaces removal
-                        caption="<start>"+" ".join([word for word in caption.split() if len(word)>=1])+"<end>" # added start and end to get captions
+                        caption="startcaption"+" ".join([word for word in caption.split() if len(word)>=1])+"endcaption" # added start and end to get captions
             
             cleaned_caption=caption_cleaning(mapping)# cleaning the caption list   
             logging.debug(f"Saving mapped caption at path {self.config.data_transformation_save_captions}")         
