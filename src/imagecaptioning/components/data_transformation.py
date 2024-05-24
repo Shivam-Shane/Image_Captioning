@@ -69,7 +69,6 @@ class DataTransformation():
                     continue
                 image_id,caption=token[0],token[1]
                 image_id=image_id.split(".")[0]     #Removing extension from image id
-                           # Converting caption list to string
                 if image_id not in mapping:
                     mapping[image_id]=[]
                 mapping[image_id].append(caption)
