@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 from tqdm import tqdm
 import pickle
+import re
 from tensorflow.keras.preprocessing.image import load_img,img_to_array # type: ignore
 from tensorflow.keras.applications.vgg16 import VGG16,preprocess_input # type: ignore
 from tensorflow.keras.models import Model # type: ignore
@@ -64,14 +65,11 @@ class DataTransformation():
                 caption_document=file.read() #storing all the captions
             for line in tqdm(caption_document.split("\n")):
                 token=line.split(",")
-                if len(token)<2:
+                if len(token) < 2:
                     continue
                 image_id,caption=token[0],token[1]
-                #Removing extextion from image id
-                image_id=image_id.split(".")[0]
-                # Converting caption list to string
-                caption=" ".join(caption)
-                #list if needed
+                image_id=image_id.split(".")[0]     #Removing extension from image id
+                           # Converting caption list to string
                 if image_id not in mapping:
                     mapping[image_id]=[]
                 mapping[image_id].append(caption)
@@ -83,14 +81,18 @@ class DataTransformation():
                 Return:
                         Cleaned captions data in form of pickle
                 """
-                for key,caption in mapping.items():
-                    for i in range(len(caption)):
-                        caption=caption[i]
+                cleaned_mapping={}
+                for key,captions in mapping.items():
+                    cleaned_captions=[]
+                    for caption in captions:
                         caption=caption.lower()
-                        caption=caption.replace("[^A-Za-z]","")
+                        caption = re.sub(r"[^a-z\s]", "", caption)  # Use regex to replace non-alphabetic characters
                         # caption=caption.replace("\s+","")# additional spaces removal
-                        caption="startcaption"+" ".join([word for word in caption.split() if len(word)>=1])+"endcaption" # added start and end to get captions
-            
+                        caption="startcaption " + " ".join([word for word in caption.split() if len(word) >= 1]) + " endcaption"# added start and end to get captions
+                        cleaned_captions.append(caption)
+                    cleaned_mapping[key]=cleaned_captions
+                return cleaned_mapping
+
             cleaned_caption=caption_cleaning(mapping)# cleaning the caption list   
             logging.debug(f"Saving mapped caption at path {self.config.data_transformation_save_captions}")         
             with open(os.path.join(self.config.data_transformation_save_captions,"captions.pkl"),"wb")as file:
