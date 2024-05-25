@@ -20,7 +20,6 @@ class Executionflow():
         config=self.config[0].execution_flow
         execution_flow_config=ExecuationFlowConfig(
                                 data_ingestion_flow=config.data_ingestion_flow,
-                                data_validation_flow=config.data_validation_flow,
                                 data_transformation_flow=config.data_transformation_flow,
                                 model_trainer_flow=config.model_trainer_flow,
                                 model_evaluation_flow=config.model_evaluation_flow
