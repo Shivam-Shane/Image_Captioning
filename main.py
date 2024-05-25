@@ -3,6 +3,7 @@ import time
 from logger import logging
 from src.imagecaptioning.pipeline.data_ingestion import DataIngestionPipeline
 from src.imagecaptioning.pipeline.data_transformation import DataTransformationPipeline
+from src.imagecaptioning.pipeline.data_model import DataModelPipeline
 from executionflow import Executionflow
 import warnings
 warnings.filterwarnings("ignore")
@@ -29,6 +30,12 @@ try:
         Get_data_transformationpipeline.main()
         logging.info("<<<< Application Ended >>>>")
         
+    STAGE_NAME="DATA MODEL"
+    if get_execuationflow.model_trainer_flow==True:
+        logging.info(f">>>>>>>>>>>>>>> Starting {STAGE_NAME} pipeline")
+        Get_data_modelpipeline=DataModelPipeline()
+        Get_data_modelpipeline.main()
+        logging.info("<<<< Application Ended >>>>")
     else:
         logging.info(f"-------------- Stage {STAGE_NAME} is skipped.")
     logging.info(f"Time taken to execute the application is {time.time()-start} seconds")

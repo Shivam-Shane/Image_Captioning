@@ -1,6 +1,6 @@
 from src.imagecaptioning.constants import *
 from src.imagecaptioning.utils.common import read_yaml,create_directories
-from src.imagecaptioning.entity import DataIngestionConfig,DataTransformationConfig
+from src.imagecaptioning.entity import DataIngestionConfig,DataTransformationConfig,DataModelConfig
 from logger import logging
 
 
@@ -49,3 +49,22 @@ class ConfigurationManager():
         )
         logging.info(f">>>> End of {self.__class__.__name__}.{self.get_data_transformation_config.__name__}")
         return data_transformation_config_detail
+    
+    def get_data_model_config(self)->DataModelConfig:
+        logging.info(f">>>>Inside {self.__class__.__name__}.{self.get_data_model_config.__name__}")
+        config_model_data=self.config_data.data_model
+        create_directories([config_model_data.data_path,
+                            config_model_data.data_model_path,
+                            config_model_data.data_features,
+                            config_model_data.data_captions
+                            ])
+        
+        data_model_config_details=DataModelConfig(
+            data_path=          config_model_data.data_path,
+            data_model_path=    config_model_data.data_model_path,
+            data_features=      config_model_data.data_features,
+            data_captions=      config_model_data.data_captions
+
+        )
+        logging.info(f">>>> End of {self.__class__.__name__}.{self.get_data_model_config.__name__}")
+        return data_model_config_details
