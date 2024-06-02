@@ -12,5 +12,5 @@ LOG_FILE_PATH = os.path.join(LOGS_PATH, LOG_FILE) # where to save log files
 logging.basicConfig(
             filename=LOG_FILE_PATH,
             format="[%(asctime)s %(lineno)s] %(levelname)s %(message)s ",
-            level=logging.DEBUG,
+            level=logging.INFO,
             )
