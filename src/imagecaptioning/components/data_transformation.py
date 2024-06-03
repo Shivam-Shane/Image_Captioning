@@ -4,6 +4,7 @@ from pathlib import Path
 from tqdm import tqdm
 import pickle
 import re
+import numpy as np
 from tensorflow.keras.preprocessing.image import load_img,img_to_array # type: ignore
 from tensorflow.keras.applications.vgg16 import VGG16,preprocess_input # type: ignore
 from tensorflow.keras.models import Model # type: ignore
@@ -32,14 +33,16 @@ class DataTransformation():
             for image_name in tqdm(os.listdir(Path(self.config.data_ingestion_path)),desc='Processing'):
                 img_path = os.path.join(Path(self.config.data_ingestion_path), image_name)
                 image=load_img(img_path,target_size=(224,224))# lOADING THE IMAGE  
-                image=img_to_array(image)#converting images to pixel
-                image=image.reshape(1,image.shape[0],image.shape[1],image.shape[2])#rReshapping data for model
-                image=preprocess_input(image)# processing input image using VGG16 preprocess_input function
-                #Extracting the features from the features extracter haiving layers from imagenet predefined dataset
+                image=img_to_array(image)# Converting images to pixel
+                image=np.expand_dims(image, axis=0)# Reshapping data for model
+                image=preprocess_input(image)# Processing input image using VGG16 preprocess_input function
+                #Extracting the features from the features extracter having layers from imagenet predefined model
                 features_extracted=self.feature_extract.predict(image,verbose=0)
                 #storing the extracted features with image IDs
+                features_extracted=features_extracted.reshape((4096,))
                 image_id =image_name.split('.')[0]
                 features[image_id] =features_extracted
+                
             logging.debug(f"Saving features at path {self.config.data_transformation_save_features}")
             file_path = Path(os.path.join(self.config.data_transformation_save_features,"features.pkl"))             
             with open(file_path,"wb")as file:
