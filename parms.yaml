@@ -2,3 +2,4 @@ Model_Arguments:
   batch_size: 10
   max_length: 35
   vocab_size: 8588
+  epochs: 35
