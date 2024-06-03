@@ -25,5 +25,6 @@ class DataTransformationConfig():
 class DataModelConfig():
   data_path: Path
   data_model_path: Path
+  data_model_tokenizer: Path
   data_features: Path
   data_captions: Path
