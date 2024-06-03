@@ -55,6 +55,7 @@ class ConfigurationManager():
         config_model_data=self.config_data.data_model
         create_directories([config_model_data.data_path,
                             config_model_data.data_model_path,
+                            config_model_data.data_model_tokenizer,
                             config_model_data.data_features,
                             config_model_data.data_captions
                             ])
@@ -62,6 +63,7 @@ class ConfigurationManager():
         data_model_config_details=DataModelConfig(
             data_path=          config_model_data.data_path,
             data_model_path=    config_model_data.data_model_path,
+            data_model_tokenizer=config_model_data.data_model_tokenizer,
             data_features=      config_model_data.data_features,
             data_captions=      config_model_data.data_captions
 
