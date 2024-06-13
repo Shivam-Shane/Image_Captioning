@@ -1,12 +1,13 @@
-setuptools
-datetime
-tqdm
-pathlib
-pandas
 PYAML
 python-box==6.0.2
 ensure
-flask
+pillow
+tqdm
+numpy
 tensorflow
+setuptools
+datetime
+pathlib
 keras
+django
 -e .
