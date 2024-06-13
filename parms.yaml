@@ -1,5 +1,5 @@
 Model_Arguments:
   batch_size: 10
-  max_length: 35
-  vocab_size: 8588
   epochs: 35
+  max_length: 74
+  vocab_size: 18727
