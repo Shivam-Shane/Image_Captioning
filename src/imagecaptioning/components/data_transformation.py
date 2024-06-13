@@ -63,9 +63,9 @@ class DataTransformation():
         logging.info(f">>>> Inside {self.__class__.__name__}.{self.map_captions_to_images.__name__}")
         try:
             mapping={}
-            with open(os.path.join(self.config.data_path,"captions.txt"),"r") as file:
+            with open(os.path.join(self.config.data_path,"captions.txt"),"r", encoding='utf-8') as file:
                 next(file)
-                caption_document=file.read() #storing all the captions
+                caption_document=file.read() #storing all the caption
             for line in tqdm(caption_document.split("\n")):
                 token=line.split(",")
                 if len(token) < 2:
