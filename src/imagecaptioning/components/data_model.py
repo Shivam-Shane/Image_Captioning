@@ -62,7 +62,7 @@ class DataModel():
         update_yaml(PARMS_FILE_PATH,updated_parameters)  # Update the model parameters
         
         tokenizer_json = self.tokenizer.to_json()   # Save the tokenizer
-        logging.info("Saving tokenizer")
+        logging.info("Saving tokenizer file in json format")
         with open(Path(os.path.join(self.config.data_model_tokenizer,'tokenizer.json')), 'w') as f:
             f.write(tokenizer_json)
             logging.info(f"Tokenizer saved to {self.config.data_model_tokenizer} ")
@@ -121,7 +121,7 @@ class DataModel():
                     X2.extend(in_seq)                       # extend the sequence
                     y.extend(out_word)                      # extend the output caption
                 yield ({'input_layer': np.array(X1), 'input_layer_1': np.array(X2)}, np.array(y))
-
+                
             logging.info(f">>>> End of {self.__class__.__name__}.{self.data_generator.__name__}")
 
     def model_definition(self):
@@ -161,17 +161,21 @@ class DataModel():
             None
         """
         logging.info(f">>>> Inside {self.__class__.__name__}.{self.model_training.__name__}")
-        logging.info("Staring Model Training")
+        logging.info("-----Starting Model Training------")
 
         steps=len(self.captions) // self.parms.Model_Arguments.batch_size
+        logging.debug("Calling model definition")
         model=self.model_definition()
-        
+        logging.debug(f"starting training in batches with batch size {self.parms.Model_Arguments.batch_size}")
         model.fit(
             self.data_generator( self.captions, self.features),
             epochs=self.parms.Model_Arguments.epochs,
             steps_per_epoch=steps,
             verbose=1)
-        
-        model.save(os.path.join(self.config.data_model_path,"model.keras"))
+        try:
+            logging.info("Saving model pickel to keras file")
+            model.save(os.path.join(self.config.data_model_path,"model.keras"))
+        except Exception as e:
+                raise e 
         logging.info(f">>>> End of {self.__class__.__name__}.{self.model_training.__name__}")
 #--------------------------------------------------------------------------------------------------------------------------------------------
