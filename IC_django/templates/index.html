@@ -1,0 +1,78 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Caption</title>
+<link rel="stylesheet" href="{% static '/index.css' %}">
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <a href="#home">Home</a>
+  <a href="#menu">Menu</a>
+  <a href="https://shivam-shane.github.io/My_portfolio_website/">Portfolio</a>
+</div>
+
+<!-- Sidebar with images -->
+<div class="sidebar">
+  <!-- Add images with captions here -->
+  <div class="image-container" onclick="showPopup('static/Img/10002456.jpg', 'Two men working on a machine wearing hard hats .')">
+    <img src="{% static 'Img/10002456.jpg' %}" alt="Image 1">
+    <div class="caption">Two men working on a machine wearing hard hats .</div>
+  </div>
+  <div class="image-container" onclick="showPopup('static/Img/49227122.jpg', 'Several people are in a group where a man in a blue shirt is smiling .')">
+    <img src="{% static 'Img/49227122.jpg' %}" alt="Image 2">
+    <div class="caption">Several people are in a group where a man in a blue shirt is smiling .</div>
+  </div>
+  <div class="image-container" onclick="showPopup('static/Img/50766676.jpg', 'young boys in a martial arts studio practicing punches')">
+    <img src="{% static '/Img/50766676.jpg' %}" alt="Image 3">
+    <div class="caption">young boys in a martial arts studio practicing punches</div>
+  </div>
+  <div class="image-container" onclick="showPopup('static/Img/50766677.jpg', 'Two boys practicing karate')">
+    <img src="{% static '/Img/50766677.jpg' %}" alt="Image 4">
+    <div class="caption">Two boys practicing karate</div>
+  </div>
+  <!-- Add more images and captions as needed -->
+</div>
+
+<!-- Image upload section -->
+<div class="upload-section">
+  <form action="/predictor/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="image" accept="image/*", required>
+    <input type="submit" value="Upload Image">
+  </form>
+
+  {% for image in images %}
+  <img src="{{ image.image.url }}" alt="Uploaded Image" style="max-width: 200px; max-height: 200px;">
+  {% endfor %}
+
+
+  {% if caption %}
+    <h2>Generated caption:</h2>
+    <p>{{ caption }}</p>
+  {% endif %}
+  
+</div>
+
+<!-- Popup -->
+<div class="popup" id="imagePopup">
+  <div class="popup-content">
+    <button class="close" onclick="closePopup()">X</button>
+    <img id="popupImage" src="" alt="">
+    <div class="caption" id="popupCaption"></div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>© 2024 Image Caption Generator. All rights reserved.</p>
+  <p>Contact us at: <a href="mailto:sk0551460@gmail.com">sk0551460@gmail.com</a></p>
+</div>
+<script src="{% static 'index.js' %} "></script>
+</body>
+</html>
