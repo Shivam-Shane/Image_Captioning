@@ -4,10 +4,11 @@ from src.imagecaptioning.components.data_predictor import Caption_Predictor
 
 @dataclass
 class DataPredictionPipeline():
-    def main(self):
+    def main(self,image):
        get_configuratiomanger =ConfigurationManager()
        get_datamodelconfig_details=get_configuratiomanger.get_data_model_config()
        datapredictor=Caption_Predictor(config=get_datamodelconfig_details)
-       feature=datapredictor.preprocess_image()
-       datapredictor.generates_captions(feature)
+       feature=datapredictor.preprocess_image(image)
+       caption=datapredictor.generates_captions(feature)
+       return caption
        
