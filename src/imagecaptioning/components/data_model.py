@@ -19,7 +19,7 @@ warnings.filterwarnings("ignore")
 class DataModel():
     def __init__(self,config=DataModelConfig):
         self.config=config
-        logging.info(self.config)
+        logging.debug(self.config)
         self.parms=read_yaml(PARMS_FILE_PATH)
         self.tokenizer=Tokenizer() 
 
@@ -113,8 +113,8 @@ class DataModel():
                 for j in range(i,min(i+batch_size,len(keys))) : # for each key in the current batch
                     key=keys[j]
                     image=image_features[key]              # Get the image feature for the current key
-                    if image.shape != (4096,):
-                        raise ValueError(f"Expected image shape (4096,), got {image.shape}")
+                    if image.shape != (2048,):
+                        logging.critical(f"Expected image shape (4096,), got {image.shape}")
                     captions_list=captions[key]                # Get the captions for the current key
                     in_img,in_seq,out_word=self.create_captions_sequence(captions_list,image) # Create the sequence
                     X1.extend(in_img)                       # extend the image
@@ -132,7 +132,7 @@ class DataModel():
             modelwrappers
         """
         logging.info(f">>>> Inside {self.__class__.__name__}.{self.model_definition.__name__}")
-        image_inputs1=Input(shape=(4096,)) # Image Layer
+        image_inputs1=Input(shape=(2048,)) # Image Layer
         feature1=Dropout(0.5)(image_inputs1)
         feature2=Dense(256,activation="relu")(feature1)
 
