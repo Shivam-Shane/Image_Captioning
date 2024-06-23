@@ -6,7 +6,7 @@ import pickle
 import re
 import numpy as np
 from tensorflow.keras.preprocessing.image import load_img,img_to_array # type: ignore
-from tensorflow.keras.applications.vgg16 import VGG16,preprocess_input # type: ignore
+from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input # type: ignore
 from tensorflow.keras.models import Model # type: ignore
 from src.imagecaptioning.config.configuration import DataTransformationConfig
 from logger import logging
@@ -27,7 +27,7 @@ class DataTransformation():
         """
         logging.info(f">>>> Inside {self.__class__.__name__}.{self.convert_images_to_features.__name__}")
         try:
-            self.model=VGG16(weights='imagenet',include_top=True)#fully connected layers responsible for classification are included.
+            self.model=ResNet50(weights='imagenet',include_top=True)#fully connected layers responsible for classification are included.
             self.feature_extract=Model(inputs=self.model.input,outputs=self.model.layers[-2].output)# taking only features layers from VGG16 , not the last output(Softmax) layer
             features={} # Dictonary for stroing the features
             for image_name in tqdm(os.listdir(Path(self.config.data_ingestion_path)),desc='Processing'):
@@ -39,7 +39,7 @@ class DataTransformation():
                 #Extracting the features from the features extracter having layers from imagenet predefined model
                 features_extracted=self.feature_extract.predict(image,verbose=0)
                 #storing the extracted features with image IDs
-                features_extracted=features_extracted.reshape((4096,))
+                features_extracted=features_extracted.reshape((2048,))
                 image_id =image_name.split('.')[0]
                 features[image_id] =features_extracted
                 
