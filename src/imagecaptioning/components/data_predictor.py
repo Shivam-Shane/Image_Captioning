@@ -4,7 +4,7 @@ from src.imagecaptioning.config.configuration import DataModelConfig
 from tensorflow.keras.preprocessing.text import tokenizer_from_json # type:ignore
 from tensorflow.keras.preprocessing.sequence import pad_sequences # type:ignore
 from tensorflow.keras.preprocessing.image import load_img, img_to_array # type:ignore
-from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input # type:ignore
+from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input # type:ignore
 from tensorflow.keras.models import Model, load_model # type:ignore
 from src.imagecaptioning.constants import *
 from src.imagecaptioning.utils.common import read_yaml
@@ -33,7 +33,7 @@ class Caption_Predictor:
                 Caption_Predictor._tokenizer = tokenizer_from_json(tokenizer_json)
 
                 # Load the VGG16 model pre-trained on ImageNet
-                self.vgg_model = VGG16(include_top=True, weights='imagenet')
+                self.vgg_model = ResNet50(include_top=True, weights='imagenet')
                 Caption_Predictor._feature_extractor = Model(inputs=self.vgg_model.inputs, outputs=self.vgg_model.layers[-2].output)
                 Caption_Predictor._runonce = True
             except Exception as e:
