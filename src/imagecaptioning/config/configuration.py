@@ -13,9 +13,6 @@ class ConfigurationManager():
         self.parms=read_yaml(PARMS_FILE_PATH)
         create_directories([self.config_data.artifacts_root])
 
-
-        logging.info(self.config_data.data_ingestion)
-
     def get_data_ingestion_config(self)-> DataIngestionConfig:
         logging.info(f">>>>Inside {self.__class__.__name__}.{self.get_data_ingestion_config.__name__}")
         config_ingestion_data=self.config_data.data_ingestion
@@ -70,3 +67,4 @@ class ConfigurationManager():
         )
         logging.info(f">>>> End of {self.__class__.__name__}.{self.get_data_model_config.__name__}")
         return data_model_config_details
+#----------------------------------------------------------------------------------------------
