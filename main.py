@@ -1,44 +1,41 @@
-# from src.imagecaptioning.components import data_ingestion
 import time
 from logger import logging
-from src.imagecaptioning.pipeline.data_ingestion import DataIngestionPipeline
-from src.imagecaptioning.pipeline.data_transformation import DataTransformationPipeline
-from src.imagecaptioning.pipeline.data_model import DataModelPipeline
+from src.imagecaptioning.pipeline import data_ingestion,data_model,data_transformation
 from executionflow import Executionflow
 import warnings
 warnings.filterwarnings("ignore")
 
-#----------------------------------------------------------------
-logging.info(">>>> Application Started")
+#----------------------------------------------------------------------------------------------
+logging.info(">>>> Application Starting.....")
+start=time.time()
 get_execuationflow=Executionflow()
 get_execuationflow=get_execuationflow.get_data_for_executionflow()
+
 try:
-    start=time.time()
+    
     STAGE_NAME="DATA INGESTION"
-    if get_execuationflow.data_ingestion_flow==True:
+    if get_execuationflow.data_ingestion_flow:
         logging.info(f">>>>>>>>>>>>>>> Starting {STAGE_NAME} pipeline")
-        Get_data_ingetsion_pipeline=DataIngestionPipeline()
-        Get_data_ingetsion_pipeline.main()
+        Get_data_ingetsion_pipeline=data_ingestion.DataIngestionPipeline()
+        Get_data_ingetsion_pipeline.main()  #calling pipeline.main
         logging.info(f"<<<<<<<<<<<<<<< Stage {STAGE_NAME} is completed successfully")
-    else:
-         logging.info(f"-------------- Stage {STAGE_NAME} is skipped.")
 
     STAGE_NAME="Data TRANSFORMATION"
-    if get_execuationflow.data_transformation_flow==True:
+    if get_execuationflow.data_transformation_flow:
         logging.info(f">>>>>>>>>>>>>>> Starting {STAGE_NAME} pipeline")
-        Get_data_transformationpipeline=DataTransformationPipeline()
+        Get_data_transformationpipeline=data_transformation.DataTransformationPipeline()
         Get_data_transformationpipeline.main()
-        logging.info("<<<< Application Ended >>>>")
+        logging.info(f"<<<<<<<<<<<<<<< Stage {STAGE_NAME} is completed successfully")
         
     STAGE_NAME="DATA MODEL"
-    if get_execuationflow.model_trainer_flow==True:
+    if get_execuationflow.model_trainer_flow:
         logging.info(f">>>>>>>>>>>>>>> Starting {STAGE_NAME} pipeline")
-        Get_data_modelpipeline=DataModelPipeline()
+        Get_data_modelpipeline=data_model.DataModelPipeline()
         Get_data_modelpipeline.main()
-        logging.info("<<<< Application Ended >>>>")
-    else:
-        logging.info(f"-------------- Stage {STAGE_NAME} is skipped.")
-    logging.info(f"Time taken to execute the application is {time.time()-start} seconds")
+        logging.info(f"<<<<<<<<<<<<<<< Stage {STAGE_NAME} is completed successfully")
+
+    logging.info(f"Application took {time.time()-start} seconds")
 except Exception as e:
+    logging.error(f"Application took {time.time()-start} seconds")
     logging.exception(e)
-#----------------------------------------------------------------
+#----------------------------------------------------------------------------------------------
