@@ -1,9 +1,12 @@
-dataset
+#Ignore all dataset directory
+dataset/
+# Ignore all .log files
 LOGS
-
+# Ignore model artifacts(pickle files, preprcessed files)
 artifacts
+# Ignore egg-info directory generated during packaging
 Image_Captioning.egg-info
-LOGS
+# Ignore Python bytecode cache directories
 __pycache__
-.zip
+# Ignore user inputed media(images) files
 media
