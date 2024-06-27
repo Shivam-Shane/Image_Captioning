@@ -5,7 +5,7 @@ LOGS
 # Ignore model artifacts(pickle files, preprcessed files)
 artifacts
 # Ignore egg-info directory generated during packaging
-Image_Captioning.egg-info
+ImageCaptioning.egg-info
 # Ignore Python bytecode cache directories
 __pycache__
 # Ignore user inputed media(images) files
