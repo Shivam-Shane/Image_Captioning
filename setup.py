@@ -1,18 +1,23 @@
-from setuptools import find_packages,setup#type:ignore
-def get_requirements(file_path:str):
-    requirment=[]
+from setuptools import find_packages, setup
+
+def get_requirements(file_path: str):
+    requirements = []
     with open(file_path) as file_obj:
-        requirments=file_obj.readlines()
-        requirments=[req.replace("\n","") for req in requirments]
+        requirements = file_obj.readlines()
+        requirements = [req.replace("\n", "") for req in requirements]
 
-        if "-e ." in requirments:
-            requirments.remove("-e .")
-    return requirments
+        if "-e ." in requirements:
+            requirements.remove("-e .")
+    return requirements
+
 setup(
-
-    name="Image Captioning",
-    author_email='sk0551460@gamil.com',
-    version="0.0.02",
+    name="ImageCaptioning",
+    version="0.1.3",
+    author="Shivam",
+    author_email='sk0551460@gmail.com',
+    description="A package that takes an image as input and returns a caption based on the image's data.",
+    url="https://github.com/Shivam-Shane/Image_Captioning.git",  # Update with your actual URL
     packages=find_packages(),
-    install_require=get_requirements('requirements.txt')
+    install_requires=get_requirements('requirements.txt'),
 )
+#---How to use this package --- run in terminal pip install . --------------------------------
