@@ -1,7 +1,7 @@
 import os
 import yaml
 from logger import logging
-from box.exceptions import BoxValueError#type:ignore
+from box.exceptions import BoxValueError
 from ensure import ensure_annotations
 from box import ConfigBox
 from pathlib import Path 
@@ -39,12 +39,13 @@ def write_yaml(path_to_yaml,updated_data):
     Args:
         path_to_yaml (str): The path to the YAML file.
         updated_data (ConfigBox): The updated data to write to the YAML file.
+    Raises:
+        Exception: If an error occurs while reading the YAML file.
     """
     logging.info(f"Starting writing yaml file {path_to_yaml}")
     try: 
         with open(path_to_yaml, "w") as yaml_file:
             yaml.dump(updated_data,yaml_file,default_flow_style=False)
-            
             logging.info(f"yaml file: {path_to_yaml} write done successfully")    
     except Exception as e:
         raise e
@@ -88,8 +89,8 @@ def create_directories(path_to_directory: list[str], verbose=True): # create dir
         verbose (bool, optional): Whether to log the creation of directories. Defaults to True.
     """
     for path in path_to_directory:
-        if not os.path.isdir(path):
-            os.makedirs(path, exist_ok=True)
+        if not os.path.isdir(path): # checks if it's a directory
+            os.makedirs(path, exist_ok=True) # create directory if it doesn't exist
             if verbose:
                 action = "Created" if not os.path.exists(path) else "Already exists"
                 logging.info(f"{action} directory at: {path}")
@@ -127,3 +128,4 @@ def format_size(size_in_bytes: int) -> str:
     # Format the size with the unit and return
     formatted_size = f"~ {round(size, 2)} {units[unit_index]}"
     return formatted_size
+#----------------------------------------------------------------------------------------------
