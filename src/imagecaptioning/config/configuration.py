@@ -3,7 +3,6 @@ from src.imagecaptioning.utils.common import read_yaml,create_directories
 from src.imagecaptioning.entity import DataIngestionConfig,DataTransformationConfig,DataModelConfig
 from logger import logging
 
-
 class ConfigurationManager():
     def __init__(self,
                 CONFIG_FILE_PATH=CONFIG_FILE_PATH,
@@ -67,4 +66,4 @@ class ConfigurationManager():
         )
         logging.info(f">>>> End of {self.__class__.__name__}.{self.get_data_model_config.__name__}")
         return data_model_config_details
-#----------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------g
