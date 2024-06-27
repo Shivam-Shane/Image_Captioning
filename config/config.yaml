@@ -1,6 +1,6 @@
-artifacts_root: artifacts
+artifacts_root: artifacts  # Root folder where all the projects artifacts will be stored
 
-execution_flow: # set true if needed to execute the flow, else false
+execution_flow: # set true if needed to execute the flow, else false,None,leave blank,or anything else
   data_ingestion_flow: True
   data_transformation_flow: True
   model_trainer_flow: True
@@ -23,3 +23,4 @@ data_model:
   data_model_tokenizer: artifacts/data_model/tokenizer
   data_features: artifacts/data_transformation/features
   data_captions: artifacts/data_transformation/captions
+  #----------------------------------------------------------------------------------------------
