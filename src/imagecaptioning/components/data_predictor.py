@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import re
 from src.imagecaptioning.config.configuration import DataModelConfig
 from tensorflow.keras.preprocessing.text import tokenizer_from_json # type:ignore
 from tensorflow.keras.preprocessing.sequence import pad_sequences # type:ignore
@@ -78,7 +79,9 @@ class Caption_Predictor:
                     break
             logging.info(f">>>> End of {self.__class__.__name__}.{self.generates_captions.__name__}")
             logging.info(in_text)
-            return in_text
+            pattern = r'startcaption\s*(.*?)\s*endcaption'
+            cleaned_text = re.sub(pattern, r'\1', in_text, flags=re.DOTALL)
+            return cleaned_text.strip()
         except Exception as e:
             raise e
 # -----------------------------------------------------------------------------------------------------------------------------------------------
