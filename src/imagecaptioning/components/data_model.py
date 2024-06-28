@@ -19,7 +19,6 @@ warnings.filterwarnings("ignore")
 class DataModel():
     def __init__(self,config=DataModelConfig):
         self.config=config
-        logging.debug(self.config)
         self.parms=read_yaml(PARMS_FILE_PATH)
         self.tokenizer=Tokenizer() 
 
@@ -36,17 +35,17 @@ class DataModel():
     def update_model_parameters(self):
         """Updates Model arguments for training
         Args:
-            captions, features taking from pickle
+            captions, features taking from pickle file
         Returns: 
             None
         """
         logging.info(f">>>> Inside {self.__class__.__name__}.{self.update_model_parameters.__name__}")
         
         all_captions=[]
-        updated_parameters={}
+        updated_parameters={}  # Empty dict for storing updated parameters
 
-        for key in self.captions:              # Iterate over all captions
-            for caption in self.captions[key]: # Iterate over all captions with specific key[image name]
+        for key in self.captions:              # Iterate over all captions document to get key
+            for caption in self.captions[key]: # Iterate over all caption with specific key[image name]
                 all_captions.append(caption)   # Append all captions to list.
 
         logging.debug(f"Total number of captions processed: {len(all_captions)}")
@@ -59,9 +58,9 @@ class DataModel():
 
         updated_parameters={"Model_Arguments.vocab_size":vocab_size
                             ,"Model_Arguments.max_length":max_length}
-        update_yaml(PARMS_FILE_PATH,updated_parameters)  # Update the model parameters
+        update_yaml(PARMS_FILE_PATH,updated_parameters)     # Updating the model parameters by calling the update_yaml function
         
-        tokenizer_json = self.tokenizer.to_json()   # Save the tokenizer
+        tokenizer_json = self.tokenizer.to_json()           # Save the tokenizer
         logging.info("Saving tokenizer file in json format")
         with open(Path(os.path.join(self.config.data_model_tokenizer,'tokenizer.json')), 'w') as f:
             f.write(tokenizer_json)
@@ -142,7 +141,7 @@ class DataModel():
         seq2=LSTM(256)(seq2)
 
         
-        decoder1=add([feature2,seq2])  # Adding Images and captions
+        decoder1=add([feature2,seq2])  # Adding Images and captions together
         decoder1=Dense(256,activation="relu")(decoder1)
         outputs=Dense(self.parms.Model_Arguments.vocab_size,activation="softmax")(decoder1)
 
@@ -158,7 +157,7 @@ class DataModel():
         Args: 
             None
         Returns: 
-            None
+                None
         """
         logging.info(f">>>> Inside {self.__class__.__name__}.{self.model_training.__name__}")
         logging.info("-----Starting Model Training------")
@@ -173,7 +172,7 @@ class DataModel():
             steps_per_epoch=steps,
             verbose=1)
         try:
-            logging.info("Saving model pickel to keras file")
+            logging.info("Saving model pickle to keras file")
             model.save(os.path.join(self.config.data_model_path,"model.keras"))
         except Exception as e:
                 raise e 
