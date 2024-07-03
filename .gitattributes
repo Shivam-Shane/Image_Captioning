@@ -1,1 +1,2 @@
 artifacts/data_model/model.keras filter=lfs diff=lfs merge=lfs -text
+artifacts/data_transformation/features/features.pkl filter=lfs diff=lfs merge=lfs -text
