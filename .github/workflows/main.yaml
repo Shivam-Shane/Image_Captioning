@@ -53,6 +53,10 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
           IMAGE_TAG: latest
+        - name: Debug ECR Info
+        run: |
+          echo "ECR Registry: ${{ steps.login-ecr.outputs.registry }}"
+          echo "ECR Repository: ${{ secrets.ECR_REPOSITORY_NAME }}"
         run: |
           # Build a docker container and
           # push it to ECR so that it can
