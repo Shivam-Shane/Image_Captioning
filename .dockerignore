@@ -1,0 +1,16 @@
+# Ignore the .git directory
+.github/
+
+# Ignore the .vscode directory
+.vscode/
+# Ignore the .conda file
+.conda
+
+# Ignore Artifacts folder and its subdirectories
+artifacts/data_ingestion
+LOGS/
+.gitignore
+__pycache__/
+LICENSE
+template.py
+*.egg-info/
