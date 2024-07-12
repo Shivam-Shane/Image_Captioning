@@ -7,7 +7,9 @@ COPY . /app
 # updating the linux os
 RUN apt update -y && apt install awscli -y
 # installing all the dependencies of project
-RUN apt-get update && pip install -r requirements.txt
+RUN apt-get update
+RUN pip install uv && uv pip install -r requirements.txt
+
 # exposing port 1001 for external access
 EXPOSE 1001:1001
 # Define environment variable
