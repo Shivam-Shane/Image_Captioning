@@ -5,4 +5,4 @@ services:
       context: . ##specifing that whole data of cwd will use ofr image building
       dockerfile: Dockerfile # from where build wors
     ports:
-      - "8000:8000" #maps the port container:host
+      - "1001:1001" #maps the port container:host
