@@ -8,9 +8,21 @@
 
 # Ignore Artifacts folder and its subdirectories
 artifacts/data_ingestion
+
+#Ignore LOGS folder and its subdirectories
 LOGS/
+
+# Ignore the .gitignore directory
 .gitignore
+
+# ignore pycache
 __pycache__/
-LICENSE
-template.py
+
+# Ignore the project meta information
 *.egg-info/
+
+# Ignore virtual environment
+imagecaption/
+
+# Ignore the vscode project settings files
+.vscode/
