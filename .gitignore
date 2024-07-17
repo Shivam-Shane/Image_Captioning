@@ -10,3 +10,7 @@ ImageCaptioning.egg-info
 __pycache__
 # Ignore user inputed media(images) files
 media
+# Ignore python virtual environment
+imagecaption/
+# Ignore vscode settings files
+.vscode/
