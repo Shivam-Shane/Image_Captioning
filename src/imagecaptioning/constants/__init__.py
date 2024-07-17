@@ -1,4 +1,4 @@
 from pathlib import Path
-
-CONFIG_FILE_PATH=Path("config/config.yaml") # path to config file, which store configuration code for the project
-PARMS_FILE_PATH=Path("PARMS.YAML")          # path to parms.yaml file, stores model hyper-parameters details.
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent.parent
+CONFIG_FILE_PATH=ROOT_DIR / Path("config/config.yaml") # path to config file, which store configuration code for the project
+PARMS_FILE_PATH=ROOT_DIR / Path("/PARMS.YAML")          # path to parms.yaml file, stores model hyper-parameters details.
