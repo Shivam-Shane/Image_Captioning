@@ -60,5 +60,5 @@ form.addEventListener('submit', function (event) {
 
     setTimeout(() => {
       hideSpinner();
-    }, 8000); 
+    }, 30000); 
   });
