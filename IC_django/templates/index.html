@@ -37,7 +37,7 @@
 
     <!-- Image upload section -->
     <div class="upload-section">
-        <form action="/predictor/" method="post" enctype="multipart/form-data">
+        <form action="/predictor/" method="post" enctype="multipart/form-data" id="form_submission">
           {% csrf_token %}
               <div class="upload-container" id="drop-area">
                       <p>Drag & Drop or choose image</p><img id="preview" alt="Image Preview">
@@ -46,7 +46,12 @@
                       <input type="submit" value="Start Magic">
         </form> 
     </div> 
-
+    <!-- Spinner section -->
+    <div id="spinner" class="spinner-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <div class="spinner-text">Doing Magic</div>
+    </div>
+    <!-- Generated caption view section -->
     <div class="Generated-captions-section">
       {% for image in images %} 
           <img src="{{ image.image.url }}" alt="Uploaded Image">

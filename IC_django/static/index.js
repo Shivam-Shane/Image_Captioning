@@ -4,6 +4,7 @@
     const preview = document.getElementById('preview');
     const fileInput = document.getElementById('fileInput');
     const defaultText = dropArea.querySelector('p');
+    
 
     dropArea.addEventListener('dragover', (event) => {
         event.preventDefault();
@@ -45,3 +46,19 @@
         }
     }
 });
+const form=document.getElementById('form_submission');
+function showSpinner() {
+    document.getElementById('spinner').style.display = 'flex';
+  }
+
+  function hideSpinner() {
+    document.getElementById('spinner').style.display = 'none';
+  }
+form.addEventListener('submit', function (event) {
+    // Show the spinner when the form is submitted
+    showSpinner();
+
+    setTimeout(() => {
+      hideSpinner();
+    }, 8000); 
+  });
