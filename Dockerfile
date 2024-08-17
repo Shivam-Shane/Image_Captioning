@@ -5,6 +5,29 @@ LABEL image="image_caption_generator"
 # Set the working directory
 WORKDIR /application
 
+# Install build dependencies to compile SQLite
+RUN apt-get update -y && apt-get install -y \
+    build-essential \
+    wget \
+    libsqlite3-dev \
+    vim
+
+# Download, compile, and install the latest SQLite version
+RUN wget https://www.sqlite.org/2024/sqlite-autoconf-3460100.tar.gz \
+    && tar xvfz sqlite-autoconf-3460100.tar.gz \
+    && cd sqlite-autoconf-3460100 \
+    && ./configure \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -rf sqlite-autoconf-3460100 sqlite-autoconf-3460100.tar.gz
+
+# Update the shared libraries cache
+RUN ldconfig
+
+# Verify SQLite version
+RUN sqlite3 --version
+
 # Copy all data to working directory app
 COPY . /application
 
