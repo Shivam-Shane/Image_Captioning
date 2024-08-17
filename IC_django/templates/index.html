@@ -1,78 +1,162 @@
-
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Caption</title>
-<link rel="stylesheet" href="{% static '/index.css' %}">
-</head>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Image Caption</title>
+      <link rel="stylesheet" href="{% static 'index.css' %}">
+    </head>
 <body>
 
 <!-- Navbar -->
 <div class="navbar">
-  <a href="#home">Home</a>
-  <a href="#menu">Menu</a>
-  <a href="https://shivam-shane.github.io/My_portfolio_website/">Portfolio</a>
-</div>
-
-<!-- Sidebar with images -->
-<div class="sidebar">
-  <!-- Add images with captions here -->
-  <div class="image-container" onclick="showPopup('static/Img/10002456.jpg', 'Two men working on a machine wearing hard hats .')">
-    <img src="{% static 'Img/10002456.jpg' %}" alt="Image 1">
-    <div class="caption">Two men working on a machine wearing hard hats .</div>
-  </div>
-  <div class="image-container" onclick="showPopup('static/Img/49227122.jpg', 'Several people are in a group where a man in a blue shirt is smiling .')">
-    <img src="{% static 'Img/49227122.jpg' %}" alt="Image 2">
-    <div class="caption">Several people are in a group where a man in a blue shirt is smiling .</div>
-  </div>
-  <div class="image-container" onclick="showPopup('static/Img/50766676.jpg', 'young boys in a martial arts studio practicing punches')">
-    <img src="{% static '/Img/50766676.jpg' %}" alt="Image 3">
-    <div class="caption">young boys in a martial arts studio practicing punches</div>
-  </div>
-  <div class="image-container" onclick="showPopup('static/Img/50766677.jpg', 'Two boys practicing karate')">
-    <img src="{% static '/Img/50766677.jpg' %}" alt="Image 4">
-    <div class="caption">Two boys practicing karate</div>
-  </div>
-  <!-- Add more images and captions as needed -->
-</div>
-
-<!-- Image upload section -->
-<div class="upload-section">
-  <form action="/predictor/" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="image" accept="image/*", required>
-    <input type="submit" value="Upload Image">
-  </form>
-
-  {% for image in images %}
-  <img src="{{ image.image.url }}" alt="Uploaded Image" style="max-width: 200px; max-height: 200px;">
-  {% endfor %}
-
-
-  {% if caption %}
-    <h2>Generated Caption:</h2>
-    <p>{{ caption }}</p>
-  {% endif %}
+    <div class="logo">
+        <h1>Image Caption Generator</h1>
+    </div>
   
+    <div class="menu-items">
+      <a href="#home">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="https://shivam-shane.github.io/My_portfolio_website/">Portfolio</a>
+    </div>
+</div>
+<!-- End of Navbar -->
+
+<!-- Content Description will be added down -->
+<div class="content"> 
+
+    <div class="page-title">
+        <h1>Generation: One Step Ahead</h1> 
+        <h4>Get real time caption for your images</h4>
+    </div>
+  
+    <div class="content-box-header">
+            <p>We create thoughtful captions that bring meaning and context to every image.</p>
+    </div>
+
+    <!-- Image upload section -->
+    <div class="upload-section">
+        <form action="/predictor/" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+              <div class="upload-container" id="drop-area">
+                      <p>Drag & Drop or choose image</p><img id="preview" alt="Image Preview">
+              </div>
+                      <input type="file" name="image" accept="image/*" id="fileInput" style="display: none;" required>
+                      <input type="submit" value="Start Magic">
+        </form> 
+    </div> 
+
+    <div class="Generated-captions-section">
+      {% for image in images %} 
+          <img src="{{ image.image.url }}" alt="Uploaded Image">
+      {% endfor %}
+      
+      {% if caption %}
+          <h2>Generated Caption:</h2>
+          <p>{{ caption }}</p>
+      {% endif %}
+    </div>
+
+    <div class="custom_tags">
+          <div class="row">
+              <p class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+                    <path d="M13.35,29.4c-0.111,0-0.222-0.037-0.312-0.109c-0.154-0.123-0.222-0.326-0.172-0.518l1.825-6.968
+                    l-4.535-4.284c-0.139-0.131-0.191-0.33-0.134-0.512c0.057-0.183,0.212-0.316,0.401-0.346l6.218-0.963l2.908-6.019
+                    c0.167-0.345,0.733-0.345,0.9,0l2.908,6.019l6.218,0.963c0.189,0.029,0.345,0.163,0.401,0.346c0.057,0.182,0.005,0.381-0.134,0.512
+                    l-4.535,4.284l1.825,6.968c0.051,0.191-0.017,0.395-0.171,0.518c-0.155,0.124-0.369,0.144-0.543,0.053L20,26.009l-6.419,3.335
+                    C13.508,29.382,13.429,29.4,13.35,29.4z M20,24.945c0.079,0,0.158,0.019,0.23,0.057l5.65,2.936l-1.614-6.165
+                    c-0.047-0.177,0.007-0.365,0.14-0.49l4.008-3.786l-5.468-0.847c-0.163-0.025-0.303-0.128-0.374-0.276L20,11.049l-2.572,5.323
+                    c-0.071,0.148-0.211,0.251-0.374,0.276l-5.469,0.847l4.008,3.786c0.133,0.125,0.187,0.313,0.141,0.49l-1.615,6.165l5.65-2.936
+                    C19.842,24.964,19.921,24.945,20,24.945z"></path>
+                    <path d="M20,38c-9.925,0-18-8.075-18-18c0-9.925,8.075-18,18-18c9.925,0,18,8.075,18,18C38,29.925,29.925,38,20,38z
+                    M20,3C10.626,3,3,10.626,3,20s7.626,17,17,17s17-7.626,17-17S29.374,3,20,3z"></path></svg>
+                    <h3>Fast and easy</h3></p>
+              <p>Just drop your image on the page, click "Generate" button. Wait a little for the process to complete. We aim to do all our conversions in under 1-2 minutes.</p>
+          </div>
+          <div class="row">
+            <p class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+                <path d="M24.781,24.46L20,19.678V34h-1V19.678l-4.782,4.782l-0.637-0.637l5.918-5.918l5.918,5.918L24.781,24.46z"></path>
+                <path d="M33.812,32H26v-1h7.812C36.673,31,39,28.771,39,26.031s-2.327-4.969-5.188-4.969
+                c-0.181,0-0.395-0.093-0.482-0.25c-0.089-0.158-0.133-0.346-0.038-0.5c0.554-0.91,0.834-1.877,0.834-2.875
+                c0-3.17-2.691-5.75-5.999-5.75c-0.902,0-1.797,0.209-2.661,0.623c-0.237,0.113-0.524,0.023-0.652-0.207
+                C23.053,8.955,19.652,7,15.937,7c-5.548,0-10.062,4.332-10.062,9.656c0,0.761,0.104,1.549,0.311,2.344
+                c0.035,0.133,0.013,0.275-0.061,0.392c-0.073,0.117-0.192,0.198-0.327,0.224C3.018,20.157,1,22.526,1,25.25C1,28.421,3.692,31,7,31
+                h6v1H7c-3.86,0-7-3.028-7-6.75c0-3.032,2.116-5.689,5.1-6.498c-0.149-0.708-0.225-1.412-0.225-2.096C4.875,10.78,9.837,6,15.937,6
+                c3.92,0,7.525,1.989,9.517,5.222c0.87-0.355,1.767-0.534,2.672-0.534c3.859,0,6.999,3.028,6.999,6.75
+                c0,0.924-0.201,1.823-0.599,2.681C37.642,20.485,40,22.998,40,26.031C40,29.322,37.224,32,33.812,32z"></path></svg>
+                <h3>In the cloud</h3></p>
+            <p>All generation take place in the cloud and will not consume any capacity from your computer.</p>
+          </div>
+          <div class="row">
+            <p class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+                <path d="M16.9,25.699c-0.128,0-0.256-0.049-0.354-0.146l-6.2-6.199c-0.195-0.195-0.195-0.512,0-0.707
+                s0.512-0.195,0.707,0l5.847,5.846l12.047-12.046c0.195-0.195,0.512-0.195,0.707,0s0.195,0.512,0,0.707l-12.4,12.399
+                C17.156,25.65,17.028,25.699,16.9,25.699z"></path>
+                <path d="M20,38.1c-0.048,0-0.097-0.007-0.144-0.021C19.209,37.885,4,33.194,4,22.1V3.5C4,3.224,4.224,3,4.5,3h31
+                C35.776,3,36,3.224,36,3.5v18.6c0,11.095-15.209,15.785-15.856,15.979C20.097,38.093,20.048,38.1,20,38.1z M5,4v18.1
+                c0,9.812,13.451,14.472,15,14.976c1.549-0.504,15-5.172,15-14.976V4H5z"></path></svg>
+                <h3>Security guaranteed</h3></p>
+            <p>We delete uploaded files instantly. No one has access to your files and privacy is 100% guaranteed.</p>
+          </div>
+          <div class="row">
+            <p class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+                <path d="M35.5,38h-11c-1.379,0-2.5-1.121-2.5-2.5v-19c0-1.378,1.121-2.5,2.5-2.5h11c1.379,0,2.5,1.122,2.5,2.5v19
+                C38,36.879,36.879,38,35.5,38z M24.5,15c-0.827,0-1.5,0.673-1.5,1.5v19c0,0.827,0.673,1.5,1.5,1.5h11c0.827,0,1.5-0.673,1.5-1.5v-19
+                c0-0.827-0.673-1.5-1.5-1.5H24.5z"></path>
+                <path d="M31.5,35h-3c-0.276,0-0.5-0.224-0.5-0.5s0.224-0.5,0.5-0.5h3c0.276,0,0.5,0.224,0.5,0.5S31.776,35,31.5,35z"></path>
+                <path d="M33,4.5V12h-1V5H3v18h17v1H3v2h17v1h-6.497c-0.144,0.893-0.688,2.883-2.741,5H20v1H9.5
+                c-0.209,0-0.396-0.13-0.469-0.326c-0.073-0.196-0.016-0.417,0.144-0.554c2.457-2.105,3.129-4.188,3.312-5.12H2.5
+                C2.224,27,2,26.776,2,26.5v-22C2,4.224,2.224,4,2.5,4h30C32.776,4,33,4.224,33,4.5z"></path></svg>
+            <h3>All devices supported</h3></p>
+            <p>Our site is browser-based and works for all platforms. There is no need to download and install any software.</p>
+          </div>
+    </div>
 </div>
 
-<!-- Popup -->
-<div class="popup" id="imagePopup">
-  <div class="popup-content">
-    <button class="close" onclick="closePopup()">X</button>
-    <img id="popupImage" src="" alt="">
-    <div class="caption" id="popupCaption"></div>
-  </div>
+<div class="content">
+  <h3>&nbsp; Some popular Generated captions.</h3>
+    <!-- Sidebar with images -->
+    <div class="sidebar">
+  
+        <div class="image-container" >                          <!-- Add images with captions here -->
+            <img src="{% static 'Img/10002456.jpg' %}" alt="Image 1">
+                <div class="caption">Two men working on a machine wearing hats .</div>
+        </div>
+        <div class="image-container">
+            <img src="{% static 'Img/49227122.jpg' %}" alt="Image 2">
+                <div class="caption">Several people are in a group where a man in a blue shirt is smiling .</div>
+        </div>
+        <div class="image-container">
+            <img src="{% static 'Img/50766676.jpg' %}" alt="Image 3">
+                <div class="caption">Young boys in a martial arts studio practicing punches</div>
+        </div>
+        <div class="image-container" >
+            <img src="{% static 'Img/50766677.jpg' %}" alt="Image 4">
+                <div class="caption">Two boys practicing karate</div>
+        </div>
+      <!-- Add more images and captions as needed -->
+    </div>
 </div>
 
 <!-- Footer -->
 <div class="footer">
-  <p>© 2024 Image Caption Generator. All rights reserved.</p>
-  <p>Contact us at: <a href="mailto:sk0551460@gmail.com">sk0551460@gmail.com</a></p>
+  <h1>Contact us at: </h1>
+  <!-- Social links -->
+      <ul class="list-atr">
+        <li><a href="https://github.com/Shivam-Shane">Github.</a></li>         
+        <li><a href="https://medium.com/@sk0551460">Medium.</a></li>
+        <li><a href="https://www.linkedin.com/in/shivam-2641081a0/">LinkedIn.</a></li>
+        <li><a href="https://buymeacoffee.com/shivamshane">Buy me a Book.</a></li>
+        <li><a href="mailto:sk0551460@gmail.com">sk0551460@gmail.com</a></li>
+      </ul>
+  <h4>© 2024 Image Caption Generator. All rights reserved.</h4>
 </div>
-<script src="{% static 'index.js' %} "></script>
+
+<script src="{% static 'index.js' %}"></script>
 </body>
 </html>
