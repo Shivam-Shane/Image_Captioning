@@ -153,7 +153,16 @@ Yes, contributions are welcome! You can fork the repository, make improvements o
 ### 13. Where can I find the model checkpoints and saved models?
 Model checkpoints and saved models are stored in the specified directories[artifacts] within the project structure. You may need to create these directories before training if they don't exist.
 
-## Support
+## Contact
 
-For support, email sk0551460@gmail.com, data.console.store@gmail.com or buy me a book at https://buymeacoffee.com/shivamshane
+For questions, suggestions, or support, reach out at 
+- **sk0551460@gmail.com** 
+- **shivam.hireme@gmail.com**.
 
+## Support the Project
+
+Help support continued development and improvements:
+
+- **Follow on LinkedIn**: Stay connected for updates – [LinkedIn Profile](https://www.linkedin.com/in/shivam-hireme/)
+- **Buy Me a Coffee**: Appreciate the project? [Buy Me a Coffee](https://buymeacoffee.com/shivamshane)
+- **Visit my Portfolio**: [Shivam's Portfolio](https://shivam-portfoliio.vercel.app/)
